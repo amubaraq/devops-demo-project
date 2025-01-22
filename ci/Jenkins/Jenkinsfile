@@ -28,7 +28,7 @@ pipeline {
     }
     stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "deepakkr35/demo-java-app:${build_version}"
+        DOCKER_IMAGE = "amubaraq/demo-java-app:${build_version}"
         REGISTRY_CREDENTIALS = credentials('dockerhub')
       }
       steps {
@@ -49,8 +49,8 @@ pipeline {
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
-                    git config user.email "deepakkr35@gmail.com"
-                    git config user.name "Deepak Kumar"
+                    git config user.email "aamubaraq@gmail.com"
+                    git config user.name "amubaraq"
                     sed -i "s/tag: .*/tag: \"${build_version}\"/" helm/app/values.yaml
                     git add helm/app/values.yaml
                     git commit -m "Update deployment image to version ${build_version}"
